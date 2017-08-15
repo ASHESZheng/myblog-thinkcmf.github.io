@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{$name} {$seo_title} {$site_name}</title>
+	<meta name="keywords" content="{$seo_keywords}" />
+	<meta name="description" content="{$seo_description}">
+    <tc_include file="Public:head" />
+</head>
+<body class="">
+<tc_include file="Public:nav_about" />
+<main class="container">
+	<div class="row">
+		<div class="col-xs-12 single-content">
+<php>
+	$ID=8;
+$page=sp_sql_page("$ID");//获取单独页面
+</php>
+		<h1>{$page.post_title}</h1>
+
+			<p>{$page.post_content}</p>
+		</div><!-- main-content/col -->
+	</div> <!--/row -->
+
+</main> <!-- /container -->
+<tc_include file="Public:footer_about"/>
+
+
+
+
+
+
+</body>
+</html>

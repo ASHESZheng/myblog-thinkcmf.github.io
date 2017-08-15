@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{$name} {$seo_title} {$site_name}</title>
+	<meta name="keywords" content="{$seo_keywords}" />
+	<meta name="description" content="{$seo_description}">
+    <tc_include file="Public:head" />
+</head>
+<body class="">
+
+<main class="container left-container">
+	<div class="row">
+		<tc_include file="Public:nav_list" />
+
+		<div class="col-md-7 col-sm-12 col-md-offset-5 main-content">
+			<php>	$ID=12;
+				$page2=sp_sql_page("$ID");//获取单独页面
+			</php>
+			<div class="author-bio" >
+				<php>
+					$smeta=json_decode($vo['smeta'],true);
+				</php>
+				<img src="{:sp_get_image_preview_url($smeta['thumb'])}" >
+				<div class="author-bio__info">
+					<h1 id="dan-robberts">{$page2.post_title}</h1>
+
+					<p>{$page2.post_content}</p>
+				</div>
+			</div>
+
+			<h2 class="favorites">Most recommended posts</h2>
+
+			<div class="posts-block animated fadeIn ">
+				<php>
+					$terms=sp_get_child_terms(6);//获取子分类信息
+				</php>
+				<foreach name="terms" item="vo">
+				<php>
+					$term_ids=$vo['term_id'];
+					$lists = sp_sql_posts_paged("cid:$term_ids;where:recommended=1");
+				</php>
+				<volist name="lists['posts']" id="vo">
+					<php>
+						$smeta=json_decode($vo['smeta'], true);
+					</php>
+
+				<article class="post author-page">
+					<div class="post-preview col-xs-10  no-gutter">
+						<h2><a>{$vo.post_title}</a></h2>
+						<p>{$vo.post_content|msubstr=0,450}</p>
+
+						<p class="meta">
+							<a class="admin" href="{:leuu('list/index',array('id'=>5))}">{$vo.user_nicename } </a><i class="admin">发表于</i>
+
+							<a class="admin" href="{:leuu('list/index',array('id'=>$vo['term_id']))}">{:sp_get_term($term_ids)['name']}</a>
+							<i class="link-spacer"></i> <i class="admin"><i class="fa fa-bookmark"></i> {$vo.post_date }</i>
+						</p>
+					</div>
+				</article>
+				</volist>
+				</foreach>
+				<tc_include file="Public:footer"/>
+		</div><!-- main content -->
+	</div> <!--/row -->
+</div>
+</main> <!-- /container -->
+
+</body>
+</html>

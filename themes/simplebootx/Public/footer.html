@@ -1,0 +1,12 @@
+{:hook('footer')}
+<php>
+	$tag='ids:3;';
+	$termbottom=sp_get_terms($tag);
+</php><foreach name="termbottom" item="vo">
+
+	<footer class="split-footer">
+		<a href="{:leuu('list/index',array('id'=>$vo['term_id']))}">{$vo.name}</a>
+		<i class="link-spacer"></i>
+		<a href="{:leuu('list/index',array('id'=>$vo['term_id']))}">{$vo.description}</a>
+	</footer>
+</foreach>

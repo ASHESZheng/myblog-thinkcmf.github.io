@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+	<head>
+		<title>{$post_title} {$site_name} </title>
+		<meta name="keywords" content="{$post_keywords}" />
+		<meta name="description" content="{$post_excerpt}">
+		<tc_include file="Public:head" />
+
+<body class="">
+<tc_include file="Public:nav_article" />
+<main class="container">
+	<div class="row">
+		<div class="col-xs-12 col-md-8 single-content-sidebar">
+
+			<h1>{$post_title}</h1>
+
+			<p>{$post_content}</p>
+
+
+		</div><!-- main-content/col -->
+
+		<div class="col-xs-12 col-md-3 col-md-offset-1 single-content-sidebar-area">
+
+			<img src="{:sp_get_asset_upload_path($smeta['thumb'])}"  alt="user-image" class="img-circle">
+			<div class="meta">
+
+				<div class="sidebar-info">
+					<php>
+						$termname=sp_get_term($term_id);
+					</php>
+
+					<a href="{:leuu('list/index',array('id'=>5))}">{$user_nicename }</a> 发表于<volist name="termname" id="vo" offset="0" length="1">
+					<a  href="{:leuu('list/index',array('id'=>$vo['term_id']))}">{:sp_get_term($term_id)['name']}</a>
+				</volist>
+				</div>
+
+				<div class="sidebar-readtime">
+					<i class="fa fa-bookmark"></i><i style="padding-left:10px; ">{$post_date}</i>
+				</div>
+
+			</div>
+
+			<h2 class="favorites">相似帖子</h2>
+
+
+			<php>
+                $posts=sp_sql_posts("cid:$term_id;order:post_date DESC;",6);//获取分类文章信息
+			</php>
+
+                <foreach name="posts" item="vo">
+                <php>
+                    $smeta=json_decode($vo['smeta'], true);
+                </php>
+			<div class="similar-post">
+				<a href="{:leuu('article/index',array('id'=>$vo['object_id'],'cid'=>$vo['term_id']))}"><h3>{$vo.post_title}</h3></a>
+			</div>
+                    </foreach>
+
+
+		</div>
+
+	</div> <!--/row -->
+
+</main> <!-- /container -->
+<tc_include file="Public:footer_article"/>
+
+
+</body>
+</html>

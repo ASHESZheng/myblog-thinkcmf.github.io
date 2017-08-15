@@ -1,0 +1,13 @@
+{:hook('footer')}
+<php>
+	$tag='ids:3;';
+	$termbottom=sp_get_terms($tag);
+</php><foreach name="termbottom" item="vo">
+<footer class="single single-page without-readmore">
+	<div class="container">
+		<div class="col-sm-12">
+			<p>{$vo.description}	<a href="{:leuu('list/index',array('id'=>2))}">最新帖子</a></p>
+		</div>
+	</div>
+</footer>
+	</foreach>

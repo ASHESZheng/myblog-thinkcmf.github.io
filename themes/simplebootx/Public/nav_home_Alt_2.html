@@ -1,0 +1,79 @@
+{:hook('body_start')}
+
+<div id="menu-target">
+    <?php
+			$effected_id="main-menu";
+		  	$filetpl="<a href='\$href' target='\$target'>\$label</a>";
+    $foldertpl="<a href='\$href' target='\$target' >\$label <b class='caret'></b></a>";
+    $ul_class="dropdown-menu" ;
+    $li_class="" ;
+    $style="nav";
+    $showlevel=6;
+    $dropdown='dropdown';
+    echo sp_get_menu("main",$effected_id,$filetpl,$foldertpl,$ul_class,$li_class,$style,$showlevel,$dropdown);
+    ?>
+</div>
+
+
+<section class="sidebar col-md-6 col-sm-12" >
+
+            <span class="menu-trigger animated fadeInDown">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </span>
+
+    <!-- if the user has javascript disabled they can still use the menu -->
+    <noscript>
+        <div class="no-js-menu">
+            <?php
+			$effected_id="main-menu";
+		  	$filetpl="<a href='\$href' target='\$target'>\$label</a>";
+            $foldertpl="<a href='\$href' target='\$target' >\$label <b class='caret'></b></a>";
+            $ul_class="dropdown-menu" ;
+            $li_class="" ;
+            $style="nav";
+            $showlevel=6;
+            $dropdown='dropdown';
+            echo sp_get_menu("main",$effected_id,$filetpl,$foldertpl,$ul_class,$li_class,$style,$showlevel,$dropdown);
+            ?>
+        </div>
+    </noscript>
+    <!-- end no script -->
+
+
+    <div class="sub-nav">
+        <a href="#"> 最新帖子</a>
+    </div>
+
+    <div class="animated fadeIn">
+<php>
+    $lastnews=sp_sql_posts_bycatid("cid:$portal_index_lastnews;order:post_date desc;");
+</php>
+        <foreach name="lastnews" item="vo">
+        <article class="post">
+            <div class="post-preview col-xs-10 no-gutter">
+                <h2><a href="{:leuu('article/index',array('id'=>$vo['obiect_id'],'cid'=>$vo['term_id']))}">{$vo.post_title}</a></h2>
+
+                <p class="meta">
+                    <a >{$vo.user_nicename }</a> 发表于
+                    <php>
+                        $term_id=6;
+                        $terms=sp_get_child_terms($term_id);
+                        $term=sp_get_term($vo['term_id']);
+                    </php>
+                    <volist name="term" id="vo" offset="0" length='1'>
+                    <a href="{:leuu('list/index',array('id'=>$vo['term_id']))}">{$term.name}</a>
+                    </volist>
+
+                </p>
+            </div>
+        </article>
+</foreach>
+
+
+
+
+    </div><!-- Home page posts -->
+
+</section><!-- end sidebar -->

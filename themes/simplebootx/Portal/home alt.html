@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html class="no-js">
+
+  <head>
+      <meta name="keywords" content="{$site_seo_keywords}" />
+      <meta name="description" content="{$site_seo_description}">
+    <title>Writer Theme | Home Alt 2</title>
+      <tc_include file="Public:head" />
+</head>
+
+
+  <body class="alt-home">
+
+    <main class="container left-container">
+    <div class="row">
+        <tc_include file="Public:nav_home_Alt_2" />
+        <section class="col-md-6 col-sm-12 col-md-offset-6 alt-main">
+
+            <div class="sub-nav">
+                <a href="#" >类别</a>
+            </div>
+
+
+
+            <div class="home-page-categories animated fadeIn ">
+                <div class="category row">
+                    <section>
+                        <php>
+                            $terms=sp_get_child_terms(6);//获取子分类信息
+                        </php>
+                        <foreach name="terms" item="vo">
+                            <php>
+                                $smeta=json_decode($vo['smeta'],true);
+                            </php>
+                            <div class="category-preview col-xs-6 col-sm-4 ">
+                                <h2>{$vo.name}</h2>
+                                <a href="{:leuu('list/index',array('id'=>$vo['term_id']))}" >
+                                    <img src="{:sp_get_asset_upload_path($smeta['thumb'])}">
+                                </a>
+                            </div>
+                        </foreach>
+                    </section>
+                </div>
+            </div>
+            <tc_include file="Public:footer"/>
+
+        </section><!-- main content -->
+    </div> <!--/row -->
+</main> <!-- /container -->
+  </body>
+
+</html>

@@ -1,0 +1,53 @@
+{:hook('footer')}
+
+ <footer class="single">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-2">
+				<img src="{:sp_get_asset_upload_path($smeta['thumb'])}"  alt="user-image" class="img-circle">
+			</div>
+			<div class="col-xs-12 col-sm-6">
+				<div class="category-list">
+					<p>发布时间 <span>{$post_date}</span></p>
+					<p><a href="{:leuu('list/index',array('id'=>5))}">{$user_nicename }</a> 发表于
+						<volist name="termname" id="vo" offset="0" length="1">
+						<a href="{:leuu('list/index',array('id'=>$vo['term_id']))}">{:sp_get_term($term_id)['name']}</a>
+					</volist>
+					</p>
+				</div>
+			</div><!-- end col -->
+			<div class="col-xs-12 col-sm-4">
+				<div class="social">
+					<a>分享此文章</a>
+					<div class="social-links">
+						<a class="social-icon" href="#" data-platform="twitter" data-message="" data-url="http://www.baidu.com/"><i class="fa fa-twitter"></i></a>
+						<a class="social-icon" href="#" data-platform="facebook" data-message="" data-url=""><i class="fa fa-facebook-official"></i></a>
+						<a class="social-icon" data-platform="mail"  href="#"><i class="fa fa-envelope"></i></a>
+					</div>
+
+                </div>
+			</div>
+		</div><!-- end row -->
+	</div>
+
+	 <div class="row read-another-section">
+	 <php>  $lastnews=sp_sql_posts_bycatid("cid:$portal_index_lastnews;order:post_date desc;");
+
+	 </php>
+<volist name="lastnews" id="vo" offset="1" length='6'>
+			<a href="{:leuu('article/index',array('id'=>$vo['object_id'],'cid'=>$vo['term_id']))}" title="{$vo.post_title}" target="_top" >
+				<div class="col-sm-6 col-md-2 no-gutter read-another-container">
+					<div class="overlay"></div>
+            <h3 class="read-another">{$vo.post_title}</h3>
+					<php>
+						$smeta=json_decode($vo['smeta'], true);
+					</php>
+            <foreach name="smeta['photo']" item="vo">
+            <img src="{:sp_get_asset_upload_path($vo['url'])}" />
+                </foreach>
+				</div>
+			</a>
+
+</volist>
+	 </div>
+ </footer>

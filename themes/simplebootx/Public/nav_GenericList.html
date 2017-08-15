@@ -1,0 +1,49 @@
+{:hook('body_start')}
+
+<div id="menu-target">
+    <?php
+			$effected_id="main-menu";
+		  	$filetpl="<a href='\$href' target='\$target'>\$label</a>";
+    $foldertpl="<a href='\$href' target='\$target' >\$label <b class='caret'></b></a>";
+    $ul_class="dropdown-menu" ;
+    $li_class="" ;
+    $style="nav";
+    $showlevel=6;
+    $dropdown='dropdown';
+    echo sp_get_menu("main",$effected_id,$filetpl,$foldertpl,$ul_class,$li_class,$style,$showlevel,$dropdown);
+    ?>
+</div>
+<php>
+    $term=sp_get_term($term_id );
+</php>
+<volist name="term" id="vo" offset="0" length='1'>
+<php>
+    $smeta = json_decode($smeta,true);
+</php>
+<section class="sidebar col-md-5 col-sm-12" style='background-image: url(__UPLOAD__{$smeta['thumb']});'>
+</volist>
+    <span class="menu-trigger animated fadeInDown">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </span>
+
+    <!-- if the user has javascript disabled they can still use the menu -->
+    <noscript>
+        <div class="no-js-menu">
+            <?php
+			$effected_id="main-menu";
+		  	$filetpl="<a href='\$href' target='\$target'>\$label</a>";
+            $foldertpl="<a href='\$href' target='\$target' >\$label <b class='caret'></b></a>";
+            $ul_class="dropdown-menu" ;
+            $li_class="" ;
+            $style="nav";
+            $showlevel=6;
+            $dropdown='dropdown';
+            echo sp_get_menu("main",$effected_id,$filetpl,$foldertpl,$ul_class,$li_class,$style,$showlevel,$dropdown);
+            ?>
+        </div>
+    </noscript>
+    <!-- end no script -->
+
+</section><!-- end sidebar -->

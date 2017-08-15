@@ -1,0 +1,62 @@
+{:hook('body_start')}
+
+<div id="menu-target">
+    <?php
+			$effected_id="main-menu";
+		  	$filetpl="<a href='\$href' target='\$target'>\$label</a>";
+    $foldertpl="<a href='\$href' target='\$target' >\$label <b class='caret'></b></a>";
+    $ul_class="dropdown-menu" ;
+    $li_class="" ;
+    $style="nav";
+    $showlevel=6;
+    $dropdown='dropdown';
+    echo sp_get_menu("main",$effected_id,$filetpl,$foldertpl,$ul_class,$li_class,$style,$showlevel,$dropdown);
+    ?>
+</div>
+    <php>
+        $home_slides=sp_getslide("portal_admin",1);
+    </php>
+<foreach name="home_slides" item="vo">
+
+<section class="sidebar col-md-5 col-sm-12" style='background-image: url({:sp_get_asset_upload_path($vo['slide_pic'])});'>
+
+    <span class="menu-trigger animated fadeInDown">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </span>
+
+    <!-- if the user has javascript disabled they can still use the menu -->
+    <noscript>
+        <div class="no-js-menu">
+            <?php
+			$effected_id="main-menu";
+		  	$filetpl="<a href='\$href' target='\$target'>\$label</a>";
+            $foldertpl="<a href='\$href' target='\$target' >\$label <b class='caret'></b></a>";
+            $ul_class="dropdown-menu" ;
+            $li_class="" ;
+            $style="nav";
+            $showlevel=6;
+            $dropdown='dropdown';
+            echo sp_get_menu("main",$effected_id,$filetpl,$foldertpl,$ul_class,$li_class,$style,$showlevel,$dropdown);
+            ?>
+        </div>
+    </noscript>
+    <!-- end no script -->
+
+    <div class="site-info">
+        <div class="primary-info">
+            <h1>{$vo.slide_des}</h1>
+            <p>{$vo.slide_content}</p>
+
+        </div>
+
+
+        <div class="secondary-info">
+            <p>
+                <a class="btn btn-primary" href="{$vo.slide_url}"><i class="fa fa-user-plus"></i>{$vo.slide_name}</a>
+            </p>
+        </div>
+
+    </div></foreach>
+</section><!-- end sidebar -->
